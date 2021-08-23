@@ -23,15 +23,15 @@
 
 <div class="wrapper">
 
-@include('admin.body.header')
+@include('admin.body.admin_header')
   <!-- Left side column. contains the logo and sidebar -->
-@include('admin.body.sidebar')
+@include('admin.body.admin_sidebar')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 	  @yield('admin')
   </div>
   <!-- /.content-wrapper -->
-  @include('admin.body.footer')
+  @include('admin.body.admin_footer')
   <!-- Control Sidebar -->
 
   <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
