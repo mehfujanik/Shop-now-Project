@@ -125,9 +125,10 @@ Route::prefix('product')->group(function () {
    Route::get('/view/info/{id}', [ProductController::class, 'ProductInfoView'])->name('product.all_info_view');
 
    
-   // Route::get('/edit/{id}', [BrandController::class, 'BrandEdit'])->name('edit.brand'); 
-   // Route::post('/update', [BrandController::class, 'BrandUpdate'])->name('update.brand');
-   // Route::get('/delete/{id}', [BrandController::class, 'BrandDelete'])->name('delete.brand'); 
+  Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit'); 
+  Route::post('/update', [ProductController::class, 'ProductUpdate'])->name('product-update');
+  Route::post('/update/image', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+  Route::post('thumbnail//update', [ProductController::class, 'ThambnailImageUpdate'])->name('update-product-thambnail');
 
    Route::get('/deactive/{id}', [ProductController::class, 'ProductDeactive'])->name('product.deactive'); 
    Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
@@ -193,3 +194,16 @@ Route::post('/user/password/update', [IndexController::class, 'UserPasswordUpdat
 
 // product detail route
 Route::get('/product/detail/{id}', [IndexController::class, 'ProductDetails']);
+
+// Frontend tags page route
+Route::get('/product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);
+
+// Frontend SubCategory wise Data
+Route::get('/subcategory/product/{subcat_id}', [IndexController::class, 'SubCatWiseProduct']);
+
+// Frontend Sub  SubCategory wise Data
+Route::get('/subsubcategory/product/{subsubcat_id}', [IndexController::class, 'SubSubCatWiseProduct']);
+
+// Product view model ajax card
+Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
+ 

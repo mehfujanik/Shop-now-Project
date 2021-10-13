@@ -15,336 +15,58 @@
             <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
             <nav class="yamm megamenu-horizontal">
               <ul class="nav">
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>Clothing</a>
+        
+                {{-- category start loop list show --}}
+                @foreach($categories as $category)                
+               
+                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="{{ $category->category_icon }}" aria-hidden="true"></i>{{ $category->category_name }}</a>
                   <ul class="dropdown-menu mega-menu">
                     <li class="yamm-content">
                       <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Shoes </a></li>
-                            <li><a href="#">Jackets</a></li>
-                            <li><a href="#">Sunglasses</a></li>
-                            <li><a href="#">Sport Wear</a></li>
-                            <li><a href="#">Blazers</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Shorts</a></li>
+                  
+                  {{-- Sub category view --}}
+                    @php
+                    $subcategories = App\Models\SubCategory::where('category_id',
+                    $category->id)->orderBy('subcategory_name','ASC')->get();
+                    @endphp
+        
+                     @foreach($subcategories as $subcategory)
+                        <div class="col-sm-12 col-md-3">    
+        
+                          <a href="{{ url('subcategory/product/'.$subcategory->id) }}">   
+                          <h2 class="title">                           
+                            {{ $subcategory->subcategory_name }}
+                          </h2>
+                        </a>
+        
+                       {{-- Sub Sub Category List --}}
+                      @php
+                      $subsubcategories = App\Models\SubSubCategory::where('subcategory_id', 
+                      $subcategory->id)->orderBy('subsubcategory_name', 'ASC')->get();
+                      @endphp
+        
+                       @foreach($subsubcategories as $subsubcategory)
+                                     
+                          <ul class="links list-unstyled"> 
+                              
+                            <li><a href="{{ url('subsubcategory/product/'.$subsubcategory->id) }}">{{ $subsubcategory->subsubcategory_name }}</a></li>                     
                           </ul>
+                       
+                          @endforeach {{-- end sub sub category loop --}}
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Handbags</a></li>
-                            <li><a href="#">Jwellery</a></li>
-                            <li><a href="#">Swimwear </a></li>
-                            <li><a href="#">Tops</a></li>
-                            <li><a href="#">Flats</a></li>
-                            <li><a href="#">Shoes</a></li>
-                            <li><a href="#">Winter Wear</a></li>
-                            <li><a href="#">Night Suits</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Toys &amp; Games</a></li>
-                            <li><a href="#">Jeans</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Shoes</a></li>
-                            <li><a href="#">School Bags</a></li>
-                            <li><a href="#">Lunch Box</a></li>
-                            <li><a href="#">Footwear</a></li>
-                            <li><a href="#">Wipes</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Sandals </a></li>
-                            <li><a href="#">Shorts</a></li>
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Jwellery</a></li>
-                            <li><a href="#">Bags</a></li>
-                            <li><a href="#">Night Dress</a></li>
-                            <li><a href="#">Swim Wear</a></li>
-                            <li><a href="#">Toys</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col --> 
+                        <!-- /.col -->                                         
+                        @endforeach   <!-- sub category end loop -->
+                      
                       </div>
                       <!-- /.row --> 
                     </li>
                     <!-- /.yamm-content -->
                   </ul>
-                  <!-- /.dropdown-menu --> </li>
+                  <!-- /.dropdown-menu -->
+                 </li>
                 <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-laptop" aria-hidden="true"></i>Electronics</a> 
-                  <!-- ================================== MEGAMENU VERTICAL ================================== -->
-                  <ul class="dropdown-menu mega-menu">
-                    <li class="yamm-content">
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                          <ul>
-                            <li><a href="#">Gaming</a></li>
-                            <li><a href="#">Laptop Skins</a></li>
-                            <li><a href="#">Apple</a></li>
-                            <li><a href="#">Dell</a></li>
-                            <li><a href="#">Lenovo</a></li>
-                            <li><a href="#">Microsoft</a></li>
-                            <li><a href="#">Asus</a></li>
-                            <li><a href="#">Adapters</a></li>
-                            <li><a href="#">Batteries</a></li>
-                            <li><a href="#">Cooling Pads</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                          <ul>
-                            <li><a href="#">Routers &amp; Modems</a></li>
-                            <li><a href="#">CPUs, Processors</a></li>
-                            <li><a href="#">PC Gaming Store</a></li>
-                            <li><a href="#">Graphics Cards</a></li>
-                            <li><a href="#">Components</a></li>
-                            <li><a href="#">Webcam</a></li>
-                            <li><a href="#">Memory (RAM)</a></li>
-                            <li><a href="#">Motherboards</a></li>
-                            <li><a href="#">Keyboards</a></li>
-                            <li><a href="#">Headphones</a></li>
-                          </ul>
-                        </div>
-                        <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="assets/images/banners/banner-side.png')}} " /></a> </div>
-                      </div>
-                      <!-- /.row --> 
-                    </li>
-                    <!-- /.yamm-content -->
-                  </ul>
-                  <!-- /.dropdown-menu --> 
-                  <!-- ================================== MEGAMENU VERTICAL ================================== --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paw" aria-hidden="true"></i>Shoes</a>
-                  <ul class="dropdown-menu mega-menu">
-                    <li class="yamm-content">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Shoes </a></li>
-                            <li><a href="#">Jackets</a></li>
-                            <li><a href="#">Sunglasses</a></li>
-                            <li><a href="#">Sport Wear</a></li>
-                            <li><a href="#">Blazers</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Shorts</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Handbags</a></li>
-                            <li><a href="#">Jwellery</a></li>
-                            <li><a href="#">Swimwear </a></li>
-                            <li><a href="#">Tops</a></li>
-                            <li><a href="#">Flats</a></li>
-                            <li><a href="#">Shoes</a></li>
-                            <li><a href="#">Winter Wear</a></li>
-                            <li><a href="#">Night Suits</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Toys &amp; Games</a></li>
-                            <li><a href="#">Jeans</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Shoes</a></li>
-                            <li><a href="#">School Bags</a></li>
-                            <li><a href="#">Lunch Box</a></li>
-                            <li><a href="#">Footwear</a></li>
-                            <li><a href="#">Wipes</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Sandals </a></li>
-                            <li><a href="#">Shorts</a></li>
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Jwellery</a></li>
-                            <li><a href="#">Bags</a></li>
-                            <li><a href="#">Night Dress</a></li>
-                            <li><a href="#">Swim Wear</a></li>
-                            <li><a href="#">Toys</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col --> 
-                      </div>
-                      <!-- /.row --> 
-                    </li>
-                    <!-- /.yamm-content -->
-                  </ul>
-                  <!-- /.dropdown-menu --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-clock-o"></i>Watches</a>
-                  <ul class="dropdown-menu mega-menu">
-                    <li class="yamm-content">
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                          <ul>
-                            <li><a href="#">Gaming</a></li>
-                            <li><a href="#">Laptop Skins</a></li>
-                            <li><a href="#">Apple</a></li>
-                            <li><a href="#">Dell</a></li>
-                            <li><a href="#">Lenovo</a></li>
-                            <li><a href="#">Microsoft</a></li>
-                            <li><a href="#">Asus</a></li>
-                            <li><a href="#">Adapters</a></li>
-                            <li><a href="#">Batteries</a></li>
-                            <li><a href="#">Cooling Pads</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                          <ul>
-                            <li><a href="#">Routers &amp; Modems</a></li>
-                            <li><a href="#">CPUs, Processors</a></li>
-                            <li><a href="#">PC Gaming Store</a></li>
-                            <li><a href="#">Graphics Cards</a></li>
-                            <li><a href="#">Components</a></li>
-                            <li><a href="#">Webcam</a></li>
-                            <li><a href="#">Memory (RAM)</a></li>
-                            <li><a href="#">Motherboards</a></li>
-                            <li><a href="#">Keyboards</a></li>
-                            <li><a href="#">Headphones</a></li>
-                          </ul>
-                        </div>
-                        <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="assets/images/banners/banner-side.png')}} " /></a> </div>
-                      </div>
-                      <!-- /.row --> 
-                    </li>
-                    <!-- /.yamm-content -->
-                  </ul>
-                  <!-- /.dropdown-menu --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-diamond"></i>Jewellery</a>
-                  <ul class="dropdown-menu mega-menu">
-                    <li class="yamm-content">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Shoes </a></li>
-                            <li><a href="#">Jackets</a></li>
-                            <li><a href="#">Sunglasses</a></li>
-                            <li><a href="#">Sport Wear</a></li>
-                            <li><a href="#">Blazers</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Shorts</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Handbags</a></li>
-                            <li><a href="#">Jwellery</a></li>
-                            <li><a href="#">Swimwear </a></li>
-                            <li><a href="#">Tops</a></li>
-                            <li><a href="#">Flats</a></li>
-                            <li><a href="#">Shoes</a></li>
-                            <li><a href="#">Winter Wear</a></li>
-                            <li><a href="#">Night Suits</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Toys &amp; Games</a></li>
-                            <li><a href="#">Jeans</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Shoes</a></li>
-                            <li><a href="#">School Bags</a></li>
-                            <li><a href="#">Lunch Box</a></li>
-                            <li><a href="#">Footwear</a></li>
-                            <li><a href="#">Wipes</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                          <ul class="links list-unstyled">
-                            <li><a href="#">Sandals </a></li>
-                            <li><a href="#">Shorts</a></li>
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Jwellery</a></li>
-                            <li><a href="#">Bags</a></li>
-                            <li><a href="#">Night Dress</a></li>
-                            <li><a href="#">Swim Wear</a></li>
-                            <li><a href="#">Toys</a></li>
-                          </ul>
-                        </div>
-                        <!-- /.col --> 
-                      </div>
-                      <!-- /.row --> 
-                    </li>
-                    <!-- /.yamm-content -->
-                  </ul>
-                  <!-- /.dropdown-menu --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-heartbeat"></i>Health and Beauty</a>
-                  <ul class="dropdown-menu mega-menu">
-                    <li class="yamm-content">
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                          <ul>
-                            <li><a href="#">Gaming</a></li>
-                            <li><a href="#">Laptop Skins</a></li>
-                            <li><a href="#">Apple</a></li>
-                            <li><a href="#">Dell</a></li>
-                            <li><a href="#">Lenovo</a></li>
-                            <li><a href="#">Microsoft</a></li>
-                            <li><a href="#">Asus</a></li>
-                            <li><a href="#">Adapters</a></li>
-                            <li><a href="#">Batteries</a></li>
-                            <li><a href="#">Cooling Pads</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                          <ul>
-                            <li><a href="#">Routers &amp; Modems</a></li>
-                            <li><a href="#">CPUs, Processors</a></li>
-                            <li><a href="#">PC Gaming Store</a></li>
-                            <li><a href="#">Graphics Cards</a></li>
-                            <li><a href="#">Components</a></li>
-                            <li><a href="#">Webcam</a></li>
-                            <li><a href="#">Memory (RAM)</a></li>
-                            <li><a href="#">Motherboards</a></li>
-                            <li><a href="#">Keyboards</a></li>
-                            <li><a href="#">Headphones</a></li>
-                          </ul>
-                        </div>
-                        <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="assets/images/banners/banner-side.png')}} " /></a> </div>
-                      </div>
-                      <!-- /.row --> 
-                    </li>
-                    <!-- /.yamm-content -->
-                  </ul>
-                  <!-- /.dropdown-menu --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paper-plane"></i>Kids and Babies</a> 
-                  <!-- /.dropdown-menu --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-futbol-o"></i>Sports</a> 
-                  <!-- ================================== MEGAMENU VERTICAL ================================== --> 
-                  <!-- /.dropdown-menu --> 
-                  <!-- ================================== MEGAMENU VERTICAL ================================== --> </li>
-                <!-- /.menu-item -->
-                
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-envira"></i>Home and Garden</a> 
-                  <!-- /.dropdown-menu --> </li>
-                <!-- /.menu-item -->
+                @endforeach {{-- end category loop --}}
                 
               </ul>
               <!-- /.nav --> 
@@ -657,7 +379,7 @@
 
                         <div>
                           @if($product->discount_price == NULL)
-                          <div class="tag new"><span>Not Discount</span></div>
+                          <div class="tag new"><span>No Discount</span></div>
                           @else
                           <div class="tag hot"><span>{{ round($discount) }} %</span></div>
                           @endif
@@ -681,8 +403,11 @@
                             <div class="action">
                               <ul class="list-unstyled">
                                 <li class="add-cart-button btn-group">
-                                  <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
-                                  <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                  <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+
+                                  
+
+                                       <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                                 </li>
                                 <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
                                 <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
@@ -729,7 +454,7 @@
                         <div class="products">
                           <div class="product">
                             <div class="product-image">
-                              <div class="image"> <a href="{{ url('product/detail/'. $product->id ) }}l"><img  src="{{ asset( $product->product_thambnail ) }}"alt=""></a> </div>
+                              <div class="image"> <a href="{{ url('product/detail/'. $product->id ) }}"><img  src="{{ asset( $product->product_thambnail ) }}"alt=""></a> </div>
                               <!-- /.image -->
                               
                                {{--only  Discount Price Show not discount % amount --}}
@@ -769,7 +494,8 @@
                               <div class="action">
                                 <ul class="list-unstyled">
                                   <li class="add-cart-button btn-group">
-                                    <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                                    <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+
                                     <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                                   </li>
                                   <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
@@ -833,6 +559,254 @@
           <!-- /.wide-banners --> 
           
           <!-- ============================================== WIDE PRODUCTS : END ============================================== --> 
+
+
+          <!-- ============================================== Skip category : start ============================================== --> 
+         
+          <section class="section featured-product wow fadeInUp">
+            <h3 class="section-title">
+               {{ $skip_category_0->category_name }}
+              </h3>
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+  
+  
+              @foreach($skip_product_0 as $product)
+              <div class="item item-carousel">
+                      <div class="products">
+                        <div class="product">
+                          <div class="product-image">
+                            <div class="image"> <a href="{{ url('product/detail/'.$product->id ) }}">
+                              <img  src="{{ asset($product->product_thambnail) }}" alt=""></a> </div>
+                            <!-- /.image -->
+  
+                          @php
+                          $amount = $product->selling_price - $product->discount_price;
+                          $discount = ($amount/$product->selling_price) * 100;
+                          @endphp                  
+  
+                            <div>
+                              @if ($product->discount_price == NULL)
+                              <div class="tag new"><span>new</span></div>
+                              @else
+                              <div class="tag hot"><span>{{ round($discount) }}%</span></div>
+                              @endif
+                            </div>
+                          </div>
+  
+                      <!-- /.product-image -->
+                        <div class="product-info text-left">
+                          <h3 class="name"><a href="{{ url('product/detail/'.$product->id ) }}">
+                        {{ $product->product_name }}
+                            </a></h3>
+                          <div class="rating rateit-small"></div>
+                          <div class="description"></div>
+  
+                        @if ($product->discount_price == NULL)
+                    <div class="product-price"> <span class="price"> ${{ $product->selling_price }} </span>  </div>
+                        @else
+                <div class="product-price"> <span class="price"> ${{ $product->discount_price }} </span> <span class="price-before-discount">$ {{ $product->selling_price }}</span> </div>
+                        @endif
+  
+  
+                          <!-- /.product-price --> 
+  
+                        </div>
+                        <!-- /.product-info -->
+                        <div class="cart clearfix animate-effect">
+                          <div class="action">
+                            <ul class="list-unstyled">
+                              <li class="add-cart-button btn-group">
+                                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+
+                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                              </li>
+                              <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                              <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                            </ul>
+                          </div>
+                          <!-- /.action --> 
+                        </div>
+                        <!-- /.cart --> 
+                        </div>
+                        <!-- /.product --> 
+  
+                      </div>
+                      <!-- /.products --> 
+                    </div>
+              <!-- /.item -->
+              @endforeach
+  
+  
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </section>
+
+           <!-- first skip end --> 
+
+
+          <section class="section featured-product wow fadeInUp">
+            <h3 class="section-title">
+               {{ $skip_category_1->category_name }}
+              </h3>
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+  
+  
+              @foreach($skip_product_1 as $product)
+              <div class="item item-carousel">
+                      <div class="products">
+                        <div class="product">
+                          <div class="product-image">
+                            <div class="image"> <a href="{{ url('product/detail/'.$product->id ) }}">
+                              <img  src="{{ asset($product->product_thambnail) }}" alt=""></a> </div>
+                            <!-- /.image -->
+  
+                          @php
+                          $amount = $product->selling_price - $product->discount_price;
+                          $discount = ($amount/$product->selling_price) * 100;
+                          @endphp                  
+  
+                            <div>
+                              @if ($product->discount_price == NULL)
+                              <div class="tag new"><span>new</span></div>
+                              @else
+                              <div class="tag hot"><span>{{ round($discount) }}%</span></div>
+                              @endif
+                            </div>
+                          </div>
+  
+                      <!-- /.product-image -->
+                        <div class="product-info text-left">
+                          <h3 class="name"><a href="{{ url('product/detail/'.$product->id ) }}">
+                        {{ $product->product_name }}
+                            </a></h3>
+                          <div class="rating rateit-small"></div>
+                          <div class="description"></div>
+  
+                        @if ($product->discount_price == NULL)
+                    <div class="product-price"> <span class="price"> ${{ $product->selling_price }} </span>  </div>
+                        @else
+                <div class="product-price"> <span class="price"> ${{ $product->discount_price }} </span> <span class="price-before-discount">$ {{ $product->selling_price }}</span> </div>
+                        @endif
+  
+  
+                          <!-- /.product-price --> 
+  
+                        </div>
+                        <!-- /.product-info -->
+                        <div class="cart clearfix animate-effect">
+                          <div class="action">
+                            <ul class="list-unstyled">
+                              <li class="add-cart-button btn-group">
+                                 <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                              </li>
+                              <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                              <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                            </ul>
+                          </div>
+                          <!-- /.action --> 
+                        </div>
+                        <!-- /.cart --> 
+                        </div>
+                        <!-- /.product --> 
+  
+                      </div>
+                      <!-- /.products --> 
+                    </div>
+              <!-- /.item -->
+              @endforeach
+  
+  
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </section>
+          <!-- /.section --> 
+          <!-- == ==== skip_product_1PRODUCTS : END ==== === --> 
+
+           <!-- == === Skib Brand 1 start == ==== -->
+
+           <section class="section featured-product wow fadeInUp">
+            <h1 class="text-center ">Product Brand</h1>
+            <h3 class="section-title"> 
+               {{ $skip_brand_1->brand_name_easy }}
+              </h3>
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+  
+  
+              @foreach($skip_brand_product_1 as $product)
+              <div class="item item-carousel">
+                      <div class="products">
+                        <div class="product">
+                          <div class="product-image">
+                            <div class="image"> <a href="{{ url('product/detail/'.$product->id ) }}">
+                              <img  src="{{ asset($product->product_thambnail) }}" alt=""></a> </div>
+                            <!-- /.image -->
+  
+                          @php
+                          $amount = $product->selling_price - $product->discount_price;
+                          $discount = ($amount/$product->selling_price) * 100;
+                          @endphp                  
+  
+                            <div>
+                              @if ($product->discount_price == NULL)
+                              <div class="tag new"><span>new</span></div>
+                              @else
+                              <div class="tag hot"><span>{{ round($discount) }}%</span></div>
+                              @endif
+                            </div>
+                          </div>
+  
+                      <!-- /.product-image -->
+                        <div class="product-info text-left">
+                          <h3 class="name"><a href="{{ url('product/detail/'.$product->id ) }}">
+                        {{ $product->product_name }}
+                            </a></h3>
+                          <div class="rating rateit-small"></div>
+                          <div class="description"></div>
+  
+                        @if ($product->discount_price == NULL)
+                    <div class="product-price"> <span class="price"> ${{ $product->selling_price }} </span>  </div>
+                        @else
+                <div class="product-price"> <span class="price"> ${{ $product->discount_price }} </span> <span class="price-before-discount">$ {{ $product->selling_price }}</span> </div>
+                        @endif
+  
+  
+                          <!-- /.product-price --> 
+  
+                        </div>
+                        <!-- /.product-info -->
+                        <div class="cart clearfix animate-effect">
+                          <div class="action">
+                            <ul class="list-unstyled">
+                              <li class="add-cart-button btn-group">
+                                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                              </li>
+                              <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                              <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                            </ul>
+                          </div>
+                          <!-- /.action --> 
+                        </div>
+                        <!-- /.cart --> 
+                        </div>
+                        <!-- /.product --> 
+  
+                      </div>
+                      <!-- /.products --> 
+                    </div>
+              <!-- /.item -->
+              @endforeach
+  
+  
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </section>
+          <!-- /.section --> 
+          <!-- == ==== skip_ Brand 1 END ==== === --> 
+
+
+
 
 
 
@@ -913,7 +887,7 @@
                 <div class="products">
                   <div class="product">
                     <div class="product-image">
-                      <div class="image"> <a href="detail.html"><img  src="{{ asset( $product->product_thambnail ) }}"alt=""></a> </div>
+                      <div class="image"> <a href="{{ url('product/detail/'.$product->id ) }}"><img  src="{{ asset( $product->product_thambnail ) }}"alt=""></a> </div>
                       <!-- /.image -->
                       
                       {{--only  Discount Price Show not discount % amount --}}
@@ -1323,7 +1297,7 @@
                       <div class="action">
                         <ul class="list-unstyled">
                           <li class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                           </li>
                           <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
@@ -1365,7 +1339,7 @@
                       <div class="action">
                         <ul class="list-unstyled">
                           <li class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                           </li>
                           <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
@@ -1407,7 +1381,7 @@
                       <div class="action">
                         <ul class="list-unstyled">
                           <li class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                           </li>
                           <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
@@ -1449,7 +1423,7 @@
                       <div class="action">
                         <ul class="list-unstyled">
                           <li class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                           </li>
                           <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
@@ -1491,7 +1465,7 @@
                       <div class="action">
                         <ul class="list-unstyled">
                           <li class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                           </li>
                           <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
@@ -1533,7 +1507,7 @@
                       <div class="action">
                         <ul class="list-unstyled">
                           <li class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary icon" type="button" onclick="productView(this.id)" id="{{$product->id}}" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                           </li>
                           <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>

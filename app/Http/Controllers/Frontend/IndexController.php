@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Brand;
+
 use App\Models\Multi_Img;
 
 class IndexController extends Controller
@@ -32,7 +34,23 @@ class IndexController extends Controller
 
         $special_deals = Product::where('special_deals', 1)->orderBy('id', 'DESC')->limit(6)->get();
 
-        return view('frontend.index', compact('categories','products','featureds','hot_deals','special_offers','special_deals'));
+        // single caregory product view
+        $skip_category_0 = Category::skip(0)->first();
+        $skip_product_0 = Product::where('status',1)->where('category_id',$skip_category_0->id)->orderBy('id','DESC')->get();
+
+        $skip_category_1 = Category::skip(1)->first();
+          $skip_product_1 = Product::where('status',1)->where('category_id',$skip_category_1->id)->orderBy('id','DESC')->get();
+
+        
+    // single Brand  product view
+      $skip_brand_1 = Brand::skip(1)->first();
+      $skip_brand_product_1 = Product::where('status',1)->where('brand_id',$skip_brand_1->id)->orderBy('id','DESC')->get();
+
+
+
+  
+
+        return view('frontend.index', compact('categories','products','featureds','hot_deals','special_offers','special_deals','skip_category_0','skip_product_0','skip_category_1','skip_product_1','skip_brand_1','skip_brand_product_1'));
     } // end method
 
 
@@ -88,6 +106,31 @@ class IndexController extends Controller
   
   
       }// end method
+
+
+      public function TagWiseProduct($tag){
+        // for tag page 
+       $categories = Category::orderBy('category_name', 'ASC')->get();
+       $products = Product::where('status', 1)->where('product_tags', $tag)->orderBy('id', 'DESC')->paginate(4);
+   
+       return view('frontend.tags.tags_view', compact('products','categories'));
+   
+       }
+
+       public function SubCatWiseProduct($subcat_id){
+         
+        $products = Product::where('status',1)->where('subcategory_id',$subcat_id)->orderBy('id','DESC')->paginate(4);
+        $categories = Category::orderBy('category_name','ASC')->get();
+        return view('frontend.product.subcategory_view',compact('products','categories'));
+    
+      }
+
+      public function SubSubCatWiseProduct($subsubcat_id){
+        $products = Product::where('status',1)->where('subsubcategory_id',$subsubcat_id)->orderBy('id','DESC')->paginate(4);
+        $categories = Category::orderBy('category_name','ASC')->get();
+        return view('frontend.product.sub_subcategory_view',compact('products','categories'));
+    
+      }
 
 
          // user Password change
@@ -152,7 +195,33 @@ class IndexController extends Controller
        return view('frontend.product.product_details', compact('product','multiimgs','product_color_all',
        'product_size_all','relatedProduct', ));
 
-      } // end mathod   
+      } // end method   
+
+      /// Product View With Ajax
+          public function ProductViewAjax($id){
+
+
+            $product = Product::with('category', 'brand')->findOrFail($id);
+
+
+
+            $color = $product->product_color;
+            $product_colors = explode(',', $color);
+
+            // size varibale is messing
+            $size = $product->product_size;
+            $product_sizes = explode(',', $size);
+
+            return response()->json(array(
+              'product' =>$product, 
+              'color' => $product_colors,
+              'size' => $product_sizes,
+          // problem is same varibale 
+
+
+            ));
+
+          } // end method
 
 
 

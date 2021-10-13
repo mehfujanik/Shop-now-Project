@@ -265,7 +265,7 @@
 
 						</div> <!-- end col md 4 -->
 
-					{{-- 	<div class="col-md-4">
+					 	{{-- <div class="col-md-4">
 
 				    <div class="form-group">
 						<h5>Main Thambnail <span class="text-danger">*</span></h5>
@@ -279,10 +279,10 @@
 					</div>
 
 
-						</div>  --}}
+						</div>   --}}
 
 
-					{{-- 	<div class="col-md-6">
+						<div class="col-md-6">
 
 				    <div class="form-group">
 						<h5>Multiple Image <span class="text-danger">*</span></h5>
@@ -297,7 +297,7 @@
 		</div>
 
 
-			</div> --}} <!-- end col md 4 -->
+			</div>  <!-- end col md 4 -->
 
 		</div> <!-- end 6th row  -->
 

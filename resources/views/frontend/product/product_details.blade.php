@@ -1,6 +1,6 @@
 @extends('frontend.main_master')
 
- @section('index')   
+ @section('content')   
 
 <!-- ===== ======== HEADER : END ============================================== -->
 <div class="breadcrumb">
@@ -21,6 +21,7 @@
 			<div class='col-md-3 sidebar'>
 				<div class="sidebar-module-container">
 				<div class="home-banner outer-top-n">
+					@include('frontend.common.sidebar_menu')
 <img src="{{ asset('frontend/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
 </div>		
   
@@ -29,7 +30,7 @@
     	<!-- ==================== HOT DEALS ================= -->
 		@include('frontend.common.hot_deals')
          <!-- =================== HOT DEALS: END =========================== -->					
-
+		 
 <!-- ============================================== NEWSLETTER ============================================== -->
 <div class="sidebar-widget newsletter wow fadeInUp outer-bottom-small outer-top-vs">
 	<h3 class="section-title">Newsletters</h3>
@@ -219,7 +220,7 @@
 										</select>
 
 										@endif 
-										
+							  			
 									</div>
 								</div>
 								
@@ -467,7 +468,7 @@
 					<div class="product">		
 						<div class="product-image">
 							<div class="image">
-								<a href="{{ url('product/details/'.$product->id ) }}">
+								<a href="{{ url('product/detail/'.$product->id ) }}">
 									<img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
 							</div><!-- /.image -->			
 
@@ -488,7 +489,7 @@
 							
 						
 						<div class="product-info text-left">
-							<h3 class="name"><a href="{{ url('product/details/'.$product->id ) }}">{{ $relatedProduct_re->product_name }}</a></h3>
+							<h3 class="name"><a href="{{ url('product/detail/'.$product->id ) }}">{{ $relatedProduct_re->product_name }}</a></h3>
 							<div class="rating rateit-small"></div>
 							<div class="description"></div>
 
@@ -537,3 +538,4 @@
 		</div><!-- /.row -->
 		</div>
 	@include('frontend.body.brands')
+@endsection
